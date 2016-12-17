@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: es-disk-3
+  labels:
+    name: es-disk-3
+spec:
+  capacity:
+    storage: 2048Gi
+  accessModes:
+    - ReadWriteOnce
+  awsElasticBlockStore:
+    volumeID: "vol-0175fa7593df6c5cd"
+    fsType: "ext4"

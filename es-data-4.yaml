@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: es-data
+  name: es-data-4
   labels:
     component: elasticsearch
     role: data
@@ -59,4 +59,4 @@ spec:
       volumes:
         - name: es-disk
           persistentVolumeClaim:
-            claimName: es-disk-claim-1
+            claimName: es-disk-claim-4

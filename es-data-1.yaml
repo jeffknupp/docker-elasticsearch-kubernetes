@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: es-data
+  name: es-data-1
   labels:
     component: elasticsearch
     role: data

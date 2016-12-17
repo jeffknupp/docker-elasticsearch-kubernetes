@@ -1,11 +1,26 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+---
+apiVersion: v1
+kind: Service
 metadata:
   name: es-data
   labels:
     component: elasticsearch
     role: data
 spec:
+  ports:
+  - port: 9300
+    name: es-discovery
+  clusterIP: None
+  selector:
+    role: data
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  serviceName: es-data
+  replicas: 4
   template:
     metadata:
       labels:
@@ -56,7 +71,11 @@ spec:
         volumeMounts:
         - name: es-disk
           mountPath: /data
-      volumes:
-        - name: es-disk
-          persistentVolumeClaim:
-            claimName: es-disk-claim-1
+    volumeClaimTemplates:
+    - metadata:
+        name: es-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+            requests:
+            storage: 2048Gi
